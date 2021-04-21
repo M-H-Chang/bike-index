@@ -6,16 +6,27 @@ import BikeFinder from './js/bike.js';
 
 function showBikes(bikeData) {
   // Declare html outside loop so .html doesnt override each loop
-  let html = "";
+  let html = `<div class="container flex p-2 row">`;
   bikeData.bikes.forEach(bike => {
+    html += `<div class="col-xs-6 col-sm-4 col-md-3">`;
+    html += `<div class="card p-2 m-3 row flex-item"><h3>Bike: </h3>`;
+    if (bike.description) {
+      html += `<p class="long-description">Description: ${bike.description}"</p>`;
+    } else {
+      html += `<p>No Description</p>`;
+    }
+    if (bike.stolen_location) {
+      html += `<p>Stolen Location: ${bike.stolen_location}"</p>`;
+    } else {
+      html += `<p>No Location</p>`;
+    }
+    bike.large_img ? html += `<div class="image-container">Bike Image: <img src="${bike.large_img}" alt="image of stolen bike" /></div>` : html += `<p>No Image</p>`;
+    // bike.large_img ? html += `Bike Image: <img src="${bike.large_img}" alt="image of stolen bike" width="250px" />` : html += `<p>No Image</p>`;
+    // ternary operator
     // bike = bikeData.bikes[0]
-    html += "<div class=\"card\"><h3>Bike: </h3>";
-    html += `<p>${bike.description}"</p>`;
-    html += `<p>${bike.stolen_location}"</p>`;
-    html += `<img src="${bike.large_img}" alt="image of stolen bike" width="250px" height="250px" />`;
-    html += "</div>";
+    html += "</div></div>";
   });
-
+  html += "</div>";
   $("#response").html(html);
   console.log(bikeData);
   // {bikes: [
