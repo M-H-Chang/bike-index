@@ -18,7 +18,7 @@ module.exports = {
     new CleanWebpackPlugin(),
     new Dotenv(),
     new HtmlWebpackPlugin({
-      title: 'Shape Tracker',
+      title: 'template-repo',
       template: './src/index.html',
       inject: 'body'
     })
