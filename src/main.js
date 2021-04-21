@@ -4,8 +4,25 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/styles.css';
 import BikeFinder from './js/bike.js';
 
-function showBikes(response) {
-  console.log(response);
+function showBikes(bikeData) {
+  // Declare html outside loop so .html doesnt override each loop
+  let html = "";
+  bikeData.bikes.forEach(bike => {
+    // bike = bikeData.bikes[0]
+    html += "<div class=\"card\"><h3>Bike: </h3>";
+    html += `<p>${bike.description}"</p>`;
+    html += `<p>${bike.stolen_location}"</p>`;
+    html += `<img src="${bike.large_img}" alt="image of stolen bike" width="250px" height="250px" />`;
+    html += "</div>";
+  });
+
+  $("#response").html(html);
+  console.log(bikeData);
+  // {bikes: [
+  //   {bike1},
+  //   {bike2},
+  //   ...
+  // ]}
 }
 
 $('#form').submit(async function(event) {
@@ -13,8 +30,8 @@ $('#form').submit(async function(event) {
   let zip = $('#zip').val();
   this.reset();
   try {
-    const response = await BikeFinder.getBike(zip);
-    showBikes(response);
+    const bikeData = await BikeFinder.getBike(zip);
+    showBikes(bikeData);
   } catch(error) {
     console.log(error);
   }
